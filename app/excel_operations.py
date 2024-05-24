@@ -1,4 +1,3 @@
-import tkinter as tk
 import tkinter.font as tkfont
 
 def display_data(app):
@@ -14,13 +13,11 @@ def display_data(app):
     for row in app.df.to_numpy().tolist():
         app.tree.insert("", "end", values=row)
 
-    # Adjust column widths based on the maximum width of the items in each column
-    margin = 1011
     font = tkfont.Font()
     for col in app.tree["columns"]:
-        max_width = font.measure(col) + margin
+        max_width = font.measure(col)
         for item in app.df[col].astype(str):
-            max_width = max(max_width, font.measure(item) + margin)
+            max_width = max(max_width, font.measure(item))
         app.tree.column(col, width=max_width)
 
 def get_acl(app):

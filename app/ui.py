@@ -30,20 +30,28 @@ class ExcelApp:
         self.add_row_button = tk.Button(button_frame, text="Consultar ACL", command=lambda: get_acl(self))
         self.add_row_button.pack(side=tk.LEFT, padx=5)
 
-        tree_frame = tk.Frame(self.root)
-        tree_frame.pack(fill=tk.BOTH, expand=True, padx=10, pady=10)
+        tree_container = tk.Frame(self.root, bd=2, relief=tk.SUNKEN)
+        tree_container.pack(fill=tk.BOTH, expand=True, padx=10, pady=10)
 
-        self.tree = ttk.Treeview(tree_frame, show='headings')
-        self.tree.pack(fill=tk.BOTH, expand=True, side='left')
+        canvas = tk.Canvas(tree_container, highlightthickness=0)
+        canvas.pack(side=tk.LEFT, fill=tk.BOTH, expand=True, padx=10, pady=10)
 
-        vsb = ttk.Scrollbar(tree_frame, orient="vertical", command=self.tree.yview)
+        vsb = ttk.Scrollbar(tree_container, orient="vertical", command=canvas.yview)
         vsb.pack(side='right', fill='y')
-        self.tree.configure(yscrollcommand=vsb.set)
 
-        hsb = ttk.Scrollbar(tree_frame, orient="horizontal", command=self.tree.xview)
+        hsb = ttk.Scrollbar(self.root, orient="horizontal", command=canvas.xview)
         hsb.pack(side='bottom', fill='x')
-        self.tree.configure(xscrollcommand=hsb.set)
+
+        canvas.configure(yscrollcommand=vsb.set, xscrollcommand=hsb.set)
+        canvas.bind('<Configure>', lambda e: canvas.configure(scrollregion=canvas.bbox('all')))
+
+        self.tree_frame = tk.Frame(canvas)
+        canvas.create_window((0, 0), window=self.tree_frame, anchor='nw')
+
+        self.tree = ttk.Treeview(self.tree_frame, show='headings')
+        self.tree.pack(side='left', fill=tk.BOTH, expand=True)
 
         style = ttk.Style()
-        style.configure("Treeview", font=("Helvetica", 10))
-        style.configure("Treeview.Heading", font=("Helvetica", 10, "bold"))
+        style.configure("Treeview", font=("Helvetica", 12))  # Tamaño de fuente reducido
+        style.configure("Treeview.Heading", font=("Helvetica", 12, "bold"))  # Tamaño de fuente reducido
+
