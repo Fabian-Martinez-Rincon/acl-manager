@@ -1,39 +1,8 @@
 import tkinter as tk
-from tkinter import ttk, filedialog
-import tkinter.font as tkfont
-import pandas as pd
+from tkinter import ttk
+from app.file_operations import load_excel
+from app.excel_operations import get_acl
 import ctypes
-
-def load_excel(app):
-    app.filepath = filedialog.askopenfilename(filetypes=[("Excel files", "*.xlsx *.xls")])
-    if app.filepath:
-        app.df = pd.read_excel(app.filepath)
-        display_data(app)
-
-def display_data(app):
-    for i in app.tree.get_children():
-        app.tree.delete(i)
-
-    app.tree["column"] = list(app.df.columns)
-    app.tree["show"] = "headings"
-
-    for col in app.tree["columns"]:
-        app.tree.heading(col, text=col)
-
-    for row in app.df.to_numpy().tolist():
-        app.tree.insert("", "end", values=row)
-
-    margin = 10
-    font = tkfont.Font()
-    for col in app.tree["columns"]:
-        max_width = font.measure(col) + margin
-        for item in app.df[col].astype(str):
-            max_width = max(max_width, font.measure(item) + margin)
-        app.tree.column(col, width=max_width)
-
-def get_acl(app):
-    if app.filepath:
-        display_data(app)
 
 class ExcelApp:
     def __init__(self, root):
@@ -78,8 +47,3 @@ class ExcelApp:
         style = ttk.Style()
         style.configure("Treeview", font=("Helvetica", 10))
         style.configure("Treeview.Heading", font=("Helvetica", 10, "bold"))
-
-if __name__ == "__main__":
-    root = tk.Tk()
-    app = ExcelApp(root)
-    root.mainloop()

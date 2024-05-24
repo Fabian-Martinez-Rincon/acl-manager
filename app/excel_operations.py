@@ -1,8 +1,9 @@
+import tkinter as tk
 import tkinter.font as tkfont
 
 def display_data(app):
-    # for i in app.tree.get_children():
-    #     app.tree.delete(i)
+    for i in app.tree.get_children():
+        app.tree.delete(i)
 
     app.tree["column"] = list(app.df.columns)
     app.tree["show"] = "headings"
@@ -14,7 +15,7 @@ def display_data(app):
         app.tree.insert("", "end", values=row)
 
     # Adjust column widths based on the maximum width of the items in each column
-    margin = 10
+    margin = 1011
     font = tkfont.Font()
     for col in app.tree["columns"]:
         max_width = font.measure(col) + margin
@@ -22,8 +23,7 @@ def display_data(app):
             max_width = max(max_width, font.measure(item) + margin)
         app.tree.column(col, width=max_width)
 
-
 def get_acl(app):
     if app.filepath:
-        print("Dios Mio")
+        print("Consultando ACL...")
         display_data(app)
