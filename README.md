@@ -56,3 +56,6 @@ Proyecto para poder gestionar ACLs (Access Control List) en un entorno Linux, al
 - QA
 - LEGAL
 - EXEC
+
+
+![image](https://github.com/Fabian-Martinez-Rincon/Fabian-Martinez-Rincon/assets/55964635/a79b2638-b7f6-4f9d-96ea-ca14130f37e3)
