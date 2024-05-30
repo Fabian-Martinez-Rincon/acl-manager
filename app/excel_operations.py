@@ -1,51 +1,48 @@
 import tkinter.font as tkfont
 
-def truncate_path(path, max_length=30):
+def truncate_path(path, max_length=60):
+    path = path.replace(' ', '')
     if len(path) <= max_length:
         return path
-    else:
-        parts = path.split('/')
-        return '.../' + '/'.join(parts[-2:])
+    parts = path.split('/')
+    return '.../' + '/'.join(parts[-2:])
 
 def display_data(app):
-    longest_string = ""
-    max_length = 0
+    # Clear the Treeview
+    for item in app.tree.get_children():
+        app.tree.delete(item)
 
-    def print_cell_content(item_id, column_name):
-        nonlocal longest_string, max_length
-        cell_content = app.tree.set(item_id, column_name)
-        print(cell_content, " ", len(cell_content))
-
-        if len(cell_content) > max_length:
-            longest_string = cell_content
-            max_length = len(cell_content)
-
-    for i in app.tree.get_children():
-        app.tree.delete(i)
-
+    # Set up columns in the Treeview
     app.tree["column"] = list(app.df.columns)
     app.tree["show"] = "headings"
 
     for col in app.tree["columns"]:
         app.tree.heading(col, text=col)
 
+    # Insert rows into the Treeview and truncate paths in the first column
     for row in app.df.to_numpy().tolist():
         row[0] = truncate_path(row[0])
-        item_id = app.tree.insert("", "end", values=row)
-        print_cell_content(item_id, app.tree["columns"][0])
+        app.tree.insert("", "end", values=row)
 
+    # Adjust column widths
+    adjust_column_widths(app)
+
+def adjust_column_widths(app):
     font = tkfont.Font()
-    for col in app.tree["columns"]:
-        max_width = font.measure(col)
-
-        for item in app.df[col].astype(str):
-            max_width = max(max_width, font.measure(item))
-        app.tree.column(col, width=max_width)
-    
-    print("Longest string: ", longest_string)
-    print("Length: ", max_length)
+    fixed_width = 450  # adjust this value to your needs
+    for index, col in enumerate(app.tree["columns"]):
+        if index == 0:  # if it's the first column
+            app.tree.column(col, width=fixed_width)
+        else:
+            max_width = font.measure(col)
+            for item in app.df[col].astype(str):
+                max_width = max(max_width, font.measure(item))
+            app.tree.column(col, width=max_width + 10)  # Adding margin for better readability
 
 def get_acl(app):
+    """
+    Function to handle ACL retrieval and display.
+    """
     if app.filepath:
-        print("Hola mundo")
+        print("Displaying ACL data...")
         display_data(app)

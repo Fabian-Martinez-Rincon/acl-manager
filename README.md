@@ -17,3 +17,42 @@ Proyecto para poder gestionar ACLs (Access Control List) en un entorno Linux, al
 - 
 
 
+## Datos de ejemplo
+
+***Path Randoms***
+
+- /home/user/documents/project/report.docx
+- /home/user/music/rock/classic/hotel_california.mp3
+- /var/www/html/index.html
+- /etc/nginx/nginx.conf
+- /usr/local/bin/script.sh
+- /mnt/data/backups/backup_2023_05_15.tar.gz
+- /opt/software/package/config.yaml
+- /srv/ftp/uploads/file.txt
+- /tmp/test_file.tmp
+- /dev/sda1
+- /var/log/syslog
+- /home/user/videos/movies/inception.mp4
+- /home/user/photos/vacation/2023/photo.jpg
+- /usr/share/icons/icon.png
+- /lib/systemd/system/sshd.service
+- /proc/cpuinfo
+- /home/user/games/game1/savefile.dat
+- /boot/grub/grub.cfg
+- /var/lib/mysql/mysql.sock
+- /home/user/.bashrc
+
+***Grupos Randoms***
+
+- DEVELOPERS
+- ADMINS
+- USERS
+- SALES
+- MARKETING
+- SUPPORT
+- HR
+- FINANCE
+- IT
+- QA
+- LEGAL
+- EXEC
