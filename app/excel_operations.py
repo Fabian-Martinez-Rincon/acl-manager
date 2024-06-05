@@ -1,11 +1,9 @@
 import tkinter.font as tkfont
 
-def truncate_path(path, max_length=60):
+def truncate_path(path):
     path = path.replace(' ', '')
-    if len(path) <= max_length:
-        return path
-    parts = path.split('/')
-    return '.../' + '/'.join(parts[-2:])
+    return path
+
 
 def display_data(app):
     # Clear the Treeview
@@ -29,7 +27,7 @@ def display_data(app):
 
 def adjust_column_widths(app):
     font = tkfont.Font()
-    fixed_width = 450  # adjust this value to your needs
+    fixed_width = 650  # adjust this value to your needs
     for index, col in enumerate(app.tree["columns"]):
         if index == 0:  # if it's the first column
             app.tree.column(col, width=fixed_width)
