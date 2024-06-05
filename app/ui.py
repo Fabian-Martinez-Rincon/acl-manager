@@ -34,10 +34,10 @@ class ExcelApp:
         self.load_button = tk.Button(button_frame, text="Cargar Excel", command=self.load_excel)
         self.load_button.pack(side=tk.LEFT, padx=5)
 
-        self.add_row_button = tk.Button(button_frame, text="GET ACL", command=self.consult_acl)
+        self.add_row_button = tk.Button(button_frame, text="GET ACL", command=self.get_acl)
         self.add_row_button.pack(side=tk.LEFT, padx=5)
 
-        self.add_row_button = tk.Button(button_frame, text="SET ACL", command=self.consult_acl)
+        self.add_row_button = tk.Button(button_frame, text="SET ACL", command=self.set_acl)
         self.add_row_button.pack(side=tk.LEFT, padx=5)
 
     def create_selected_label(self):
@@ -45,7 +45,7 @@ class ExcelApp:
         self.selected_label_frame = tk.Frame(self.root)
         self.selected_label_frame.pack(side=tk.TOP, fill=tk.X, padx=10, pady=5)
 
-        self.selected_label = tk.Label(self.selected_label_frame, text="Selecciona una fila y haz clic en 'Consultar ACL'")
+        self.selected_label = tk.Label(self.selected_label_frame, text="Selecciona una fila y una de las opciones")
         self.selected_label.pack(side=tk.LEFT)
 
         self.copy_button = tk.Button(self.selected_label_frame, text="Copiar", command=self.copy_selected_text)
@@ -85,7 +85,26 @@ class ExcelApp:
         except Exception as e:
             messagebox.showerror("Error", f"Error al cargar el archivo: {e}")
 
-    def consult_acl(self):
+    def get_acl(self):
+        """Consult ACL and display the results."""
+        try:
+            selected_item = self.tree.focus()
+            if not selected_item:
+                messagebox.showwarning("Advertencia", "No se ha seleccionado ninguna fila.")
+                return
+            selected_row = self.tree.item(selected_item, 'values')
+            headers = self.tree["columns"]
+            file_path = selected_row[0]
+            command = f'getfacl "{file_path}"'
+            self.selected_entry.config(state='normal')
+            self.selected_entry.delete(0, tk.END)
+            self.selected_entry.insert(0, command)
+            self.selected_entry.config(state='readonly')
+            get_acl(self)
+        except Exception as e:
+            messagebox.showerror("Error", f"Error al consultar ACL: {e}")
+
+    def set_acl(self):
         """Consult ACL and display the results."""
         try:
             selected_item = self.tree.focus()
