@@ -60,3 +60,11 @@ Directorios \ Grupos = "/home/redes/Downloads/Carpeta para probar"; group1 = r-x
 ```
 
 Y quiero formatearlo al siguiente
+
+setfacl -R -m g:group1:r-x "/home/redes/Downloads/Carpeta para probar"
+setfacl -R -m g:group2:r-x "/home/redes/Downloads/Carpeta para probar"
+setfacl -R -m g:group3:r-x "/home/redes/Downloads/Carpeta para probar"
+
+setfacl -R -m g:group1:rwx "/home/redes/Desktop"; 
+setfacl -R -m g:group2:r-x "/home/redes/Desktop"; 
+setfacl -R -m g:group3:--- "/home/redes/Desktop"

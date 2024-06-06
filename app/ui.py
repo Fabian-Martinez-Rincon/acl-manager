@@ -95,10 +95,7 @@ class ExcelApp:
             selected_row = self.tree.item(selected_item, 'values')
             headers = self.tree["columns"]
             file_path = selected_row[0]
-            if file_path.startswith('"'):
-                command = f'getfacl "{file_path[2:]}'
-            else:
-                command = f'getfacl {file_path[1:]}'
+            command = f'getfacl {file_path}'
             self.selected_entry.config(state='normal')
             self.selected_entry.delete(0, tk.END)
             self.selected_entry.insert(0, command)
@@ -108,7 +105,7 @@ class ExcelApp:
             messagebox.showerror("Error", f"Error al consultar ACL: {e}")
 
     def set_acl(self):
-        """Consult ACL and display the results."""
+        """Set ACL and display the results."""
         try:
             selected_item = self.tree.focus()
             if not selected_item:
@@ -116,14 +113,21 @@ class ExcelApp:
                 return
             selected_row = self.tree.item(selected_item, 'values')
             headers = self.tree["columns"]
-            selected_text = "; ".join([f"{header} = {value}" for header, value in zip(headers, selected_row)])
+
+            file_path = selected_row[0]
+            acl_commands = []
+
+            for header, value in zip(headers[1:], selected_row[1:]):
+                acl_commands.append(f'setfacl -R -m g:{header}:{value} {file_path}')
+
+            result_text = "; ".join(acl_commands)
             self.selected_entry.config(state='normal')
             self.selected_entry.delete(0, tk.END)
-            self.selected_entry.insert(0, selected_text)
+            self.selected_entry.insert(0, result_text)
             self.selected_entry.config(state='readonly')
-            get_acl(self)
         except Exception as e:
-            messagebox.showerror("Error", f"Error al consultar ACL: {e}")
+            messagebox.showerror("Error", f"Error al configurar ACL: {e}")
+
 
     def on_tree_select(self, event):
         pass
