@@ -85,6 +85,8 @@ class ExcelApp:
         except Exception as e:
             messagebox.showerror("Error", f"Error al cargar el archivo: {e}")
 
+
+    
     def get_acl(self):
         """Consult ACL and display the results."""
         try:
@@ -93,14 +95,14 @@ class ExcelApp:
                 messagebox.showwarning("Advertencia", "No se ha seleccionado ninguna fila.")
                 return
             selected_row = self.tree.item(selected_item, 'values')
-            headers = self.tree["columns"]
             file_path = selected_row[0]
+
             command = f'getfacl {file_path}'
             self.selected_entry.config(state='normal')
             self.selected_entry.delete(0, tk.END)
             self.selected_entry.insert(0, command)
             self.selected_entry.config(state='readonly')
-            get_acl(self)
+            # get_acl(self)
         except Exception as e:
             messagebox.showerror("Error", f"Error al consultar ACL: {e}")
 
@@ -112,11 +114,10 @@ class ExcelApp:
                 messagebox.showwarning("Advertencia", "No se ha seleccionado ninguna fila.")
                 return
             selected_row = self.tree.item(selected_item, 'values')
-            headers = self.tree["columns"]
-
             file_path = selected_row[0]
-            acl_commands = []
 
+            acl_commands = []
+            headers = self.tree["columns"]
             for header, value in zip(headers[1:], selected_row[1:]):
                 acl_commands.append(f'setfacl -R -m g:{header}:{value} {file_path}')
 
