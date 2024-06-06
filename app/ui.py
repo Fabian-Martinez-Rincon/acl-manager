@@ -95,7 +95,10 @@ class ExcelApp:
             selected_row = self.tree.item(selected_item, 'values')
             headers = self.tree["columns"]
             file_path = selected_row[0]
-            command = f'getfacl "{file_path}"'
+            if file_path.startswith('"'):
+                command = f'getfacl "{file_path[2:]}'
+            else:
+                command = f'getfacl {file_path[1:]}'
             self.selected_entry.config(state='normal')
             self.selected_entry.delete(0, tk.END)
             self.selected_entry.insert(0, command)
@@ -134,7 +137,6 @@ class ExcelApp:
     def copy_selected_text(self):
         self.root.clipboard_clear()
         self.root.clipboard_append(self.selected_entry.get())
-        messagebox.showinfo("Copiar", "Texto copiado al portapapeles.")
 
 if __name__ == "__main__":
     root = tk.Tk()

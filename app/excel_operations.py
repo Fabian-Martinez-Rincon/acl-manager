@@ -1,28 +1,25 @@
 import tkinter.font as tkfont
 
 def truncate_path(path):
-    path = path.replace(' ', '')
+    if ' ' in path:
+        path = '"' + path + '"'
     return path
 
 
 def display_data(app):
-    # Clear the Treeview
     for item in app.tree.get_children():
         app.tree.delete(item)
 
-    # Set up columns in the Treeview
     app.tree["column"] = list(app.df.columns)
     app.tree["show"] = "headings"
 
     for col in app.tree["columns"]:
         app.tree.heading(col, text=col)
 
-    # Insert rows into the Treeview and truncate paths in the first column
     for row in app.df.to_numpy().tolist():
         row[0] = truncate_path(row[0])
         app.tree.insert("", "end", values=row)
 
-    # Adjust column widths
     adjust_column_widths(app)
 
 def adjust_column_widths(app):
