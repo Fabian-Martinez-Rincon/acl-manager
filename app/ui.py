@@ -24,6 +24,7 @@ class ExcelApp:
         """Create and pack all widgets in the main window."""
         self.create_button_frame()
         self.create_selected_label()
+        # self.create_selected_label()
         self.create_treeview_frame()
 
     def create_button_frame(self):
@@ -34,10 +35,19 @@ class ExcelApp:
         self.load_button = tk.Button(button_frame, text="Cargar Excel", command=self.load_excel)
         self.load_button.pack(side=tk.LEFT, padx=5)
 
-        self.add_row_button = tk.Button(button_frame, text="GET ACL", command=self.get_acl)
+        self.add_row_button = tk.Button(button_frame, text="GET ACL", command=lambda: self.process("GET"))
         self.add_row_button.pack(side=tk.LEFT, padx=5)
 
-        self.add_row_button = tk.Button(button_frame, text="SET ACL", command=self.set_acl)
+        self.add_row_button = tk.Button(button_frame, text="SET ACL", command=lambda: self.process("SET"))
+        self.add_row_button.pack(side=tk.LEFT, padx=5)
+
+        self.add_row_button = tk.Button(button_frame, text="SET ACL Recursivo", command=lambda: self.process("SET RECURSIVO"))
+        self.add_row_button.pack(side=tk.LEFT, padx=5)
+
+        self.add_row_button = tk.Button(button_frame, text="DELETE ACL", command=lambda: self.process("DELETE"))
+        self.add_row_button.pack(side=tk.LEFT, padx=5)
+
+        self.add_row_button = tk.Button(button_frame, text="DELETE ACL Recursivo", command=lambda: self.process("DELETE RECURSIVO"))
         self.add_row_button.pack(side=tk.LEFT, padx=5)
 
     def create_selected_label(self):
@@ -76,8 +86,6 @@ class ExcelApp:
         style.configure("Treeview", rowheight=25, background="white", foreground="black", fieldbackground="white")
         style.map('Treeview', background=[('selected', 'blue')], foreground=[('selected', 'white')])
 
-        self.tree.bind("<ButtonRelease-1>", self.on_tree_select)
-
     def load_excel(self):
         """Load an Excel file and display its content."""
         try:
@@ -85,9 +93,7 @@ class ExcelApp:
         except Exception as e:
             messagebox.showerror("Error", f"Error al cargar el archivo: {e}")
 
-
-    
-    def get_acl(self):
+    def process(self, arg):
         """Consult ACL and display the results."""
         try:
             selected_item = self.tree.focus()
@@ -96,52 +102,44 @@ class ExcelApp:
                 return
             selected_row = self.tree.item(selected_item, 'values')
             file_path = selected_row[0]
+            command = ""
 
-            command = f'getfacl {file_path}'
+            if arg == "GET":
+                command = f'getfacl {file_path}'
+            elif arg == "SET":
+                acl_commands = []
+                headers = self.tree["columns"]
+                for header, value in zip(headers[1:], selected_row[1:]):
+                    acl_commands.append(f'setfacl -m g:{header}:{value} {file_path}')
+                command = "; ".join(acl_commands)
+            elif arg == "SET RECURSIVO":
+                acl_commands = []
+                headers = self.tree["columns"]
+                for header, value in zip(headers[1:], selected_row[1:]):
+                    acl_commands.append(f'setfacl -R -m g:{header}:{value} {file_path}')
+                command = "; ".join(acl_commands)
+            elif arg == "DELETE":
+                command = f'setfacl -b {file_path}'
+            elif arg == "DELETE RECURSIVO":
+                acl_commands = []
+                command = f'setfacl -R -b {file_path}'
+            
             self.selected_entry.config(state='normal')
             self.selected_entry.delete(0, tk.END)
             self.selected_entry.insert(0, command)
             self.selected_entry.config(state='readonly')
-            # get_acl(self)
         except Exception as e:
             messagebox.showerror("Error", f"Error al consultar ACL: {e}")
-
-    def set_acl(self):
-        """Set ACL and display the results."""
-        try:
-            selected_item = self.tree.focus()
-            if not selected_item:
-                messagebox.showwarning("Advertencia", "No se ha seleccionado ninguna fila.")
-                return
-            selected_row = self.tree.item(selected_item, 'values')
-            file_path = selected_row[0]
-
-            acl_commands = []
-            headers = self.tree["columns"]
-            for header, value in zip(headers[1:], selected_row[1:]):
-                acl_commands.append(f'setfacl -R -m g:{header}:{value} {file_path}')
-
-            result_text = "; ".join(acl_commands)
-            self.selected_entry.config(state='normal')
-            self.selected_entry.delete(0, tk.END)
-            self.selected_entry.insert(0, result_text)
-            self.selected_entry.config(state='readonly')
-        except Exception as e:
-            messagebox.showerror("Error", f"Error al configurar ACL: {e}")
-
-
-    def on_tree_select(self, event):
-        pass
-        # selected_item = self.tree.focus()
-        # selected_row = self.tree.item(selected_item, 'values')
-        # self.selected_entry.config(state='normal')
-        # self.selected_entry.delete(0, tk.END)
-        # self.selected_entry.insert(0, selected_row)
-        # self.selected_entry.config(state='readonly')
 
     def copy_selected_text(self):
         self.root.clipboard_clear()
         self.root.clipboard_append(self.selected_entry.get())
+        self.root.update()
+        copied_text = self.root.clipboard_get()
+        if copied_text == self.selected_entry.get():
+            messagebox.showinfo("Copiar", "Texto copiado al portapapeles.")
+        else:
+            messagebox.showerror("Error", "El texto no se pudo copiar correctamente. Intenta nuevamente.")
 
 if __name__ == "__main__":
     root = tk.Tk()
