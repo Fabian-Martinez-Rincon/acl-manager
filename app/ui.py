@@ -9,6 +9,7 @@ class ExcelApp:
         self.root = root
         self.root.title("Gestor de ACLs (Access Control Lists)")
         self.set_initial_window_size()
+        self.root.configure(bg='#333333')
         self.filepath = None
         self.create_widgets()
 
@@ -29,61 +30,66 @@ class ExcelApp:
         self.create_treeview_frame()
     
     def create_logo(self):
-        self.logo_frame = tk.Frame(self.root)
-        self.logo_frame.pack(side=tk.TOP, pady=10, padx=10, fill=tk.X)
+        self.logo_frame = tk.Frame(self.root, bg='#333333')
+        self.logo_frame.pack(side=tk.TOP, pady=10, padx=35, fill=tk.X )
 
         self.logo_image = tk.PhotoImage(file="assets/logo.png")
-        self.logo_label = tk.Label(self.logo_frame, image=self.logo_image)
+        self.logo_label = tk.Label(self.logo_frame, image=self.logo_image , bg='#333333')
         self.logo_label.pack(side=tk.LEFT)
 
-        self.title_label = tk.Label(self.logo_frame, text="Gestor de Permisos", font=("Helvetica", 16, "bold"))
+        self.title_label = tk.Label(self.logo_frame, text="Gestor de Permisos", font=("Helvetica", 16, "bold"), bg='#333333', fg='white')
         self.title_label.pack(side=tk.LEFT, padx=10)
 
-        tk.Label(self.logo_frame, text="", width=5).pack(side=tk.LEFT, expand=True)
+        tk.Label(self.logo_frame, text="", width=5 , bg='#333333').pack(side=tk.LEFT, expand=True)
 
-    def create_button_frame(self):
-        button_frame = tk.Frame(self.root)
-        button_frame.pack(side=tk.TOP, pady=10, padx=10, fill=tk.X)
+        button_frame = tk.Frame(self.root, bg='#333333')
+        button_frame.pack(side=tk.TOP, pady=10, padx=35, fill=tk.X)
 
         button_style = {'side': tk.LEFT, 'padx': 5, 'pady': 5}
 
-        self.load_button = tk.Button(button_frame, text="Cargar Excel", command=self.load_excel, bg="lightblue", fg="black", font=("Helvetica", 10, "bold"))
+        self.load_button = tk.Button(button_frame, text="CARGAR EXCEL", command=self.load_excel, bg="#333333", fg="white", font=("Helvetica", 10, "bold"))
         self.load_button.pack(**button_style)
 
-        self.get_acl_button = tk.Button(button_frame, text="CONSULTAR PERMISOS", command=lambda: self.process("GET"), bg="lightblue", fg="black", font=("Helvetica", 10, "bold"))
+    def create_button_frame(self):
+        button_frame = tk.Frame(self.root, bg='#333333')
+        button_frame.pack(side=tk.TOP, pady=10, padx=35, fill=tk.X)
+
+        button_style = {'side': tk.LEFT, 'padx': 5, 'pady': 5}
+
+        self.get_acl_button = tk.Button(button_frame, text="CONSULTAR PERMISOS", command=lambda: self.process("GET"), bg="#333333", fg="white", font=("Helvetica", 10, "bold"))
         self.get_acl_button.pack(**button_style)
 
-        self.set_acl_button = tk.Button(button_frame, text="SETEAR PERMISOS", command=lambda: self.process("SET"), bg="lightblue", fg="black", font=("Helvetica", 10, "bold"))
+        self.set_acl_button = tk.Button(button_frame, text="SETEAR PERMISOS", command=lambda: self.process("SET"), bg="#333333", fg="white", font=("Helvetica", 10, "bold"))
         self.set_acl_button.pack(**button_style)
 
-        self.set_acl_recursive_button = tk.Button(button_frame, text="SET ACL Recursivo", command=lambda: self.process("SET RECURSIVO"), bg="lightblue", fg="black", font=("Helvetica", 10, "bold"))
+        self.set_acl_recursive_button = tk.Button(button_frame, text="SET ACL Recursivo", command=lambda: self.process("SET RECURSIVO"), bg="#333333", fg="white", font=("Helvetica", 10, "bold"))
         self.set_acl_recursive_button.pack(**button_style)
 
-        self.delete_acl_button = tk.Button(button_frame, text="DELETE ACL", command=lambda: self.process("DELETE"), bg="lightblue", fg="black", font=("Helvetica", 10, "bold"))
+        self.delete_acl_button = tk.Button(button_frame, text="DELETE ACL", command=lambda: self.process("DELETE"), bg="#333333", fg="white", font=("Helvetica", 10, "bold"))
         self.delete_acl_button.pack(**button_style)
 
-        self.delete_acl_recursive_button = tk.Button(button_frame, text="DELETE ACL Recursivo", command=lambda: self.process("DELETE RECURSIVO"), bg="lightblue", fg="black", font=("Helvetica", 10, "bold"))
+        self.delete_acl_recursive_button = tk.Button(button_frame, text="DELETE ACL Recursivo", command=lambda: self.process("DELETE RECURSIVO"), bg="#333333", fg="white", font=("Helvetica", 10, "bold"))
         self.delete_acl_recursive_button.pack(**button_style)
 
     def create_selected_label(self):
         """Create a label to display the selected row."""
-        self.selected_label_frame = tk.Frame(self.root)
-        self.selected_label_frame.pack(side=tk.TOP, fill=tk.X, padx=10, pady=10)
+        self.selected_label_frame = tk.Frame(self.root, bg='#333333')
+        self.selected_label_frame.pack(side=tk.TOP, fill=tk.X, padx=35, pady=10)
 
         label_font = ("Helvetica", 12)
         button_font = ("Helvetica", 10, "bold")
         entry_bg_color = "#f0f0f0"
 
-        self.selected_label = tk.Label(self.selected_label_frame, text="Selecciona una fila y una de las opciones", font=label_font)
+        self.selected_label = tk.Label(self.selected_label_frame, text="Selecciona una fila y una de las opciones", font=label_font, bg='#333333', fg='white')
         self.selected_label.pack(side=tk.LEFT, padx=10)
 
-        self.copy_button = tk.Button(self.selected_label_frame, text="Copiar", command=self.copy_selected_text, font=button_font, bg="lightblue", fg="black")
+        self.copy_button = tk.Button(self.selected_label_frame, text="Copiar", command=self.copy_selected_text, font=button_font, bg="#333333", fg="white")
         self.copy_button.pack(side=tk.LEFT, padx=10)
 
-        self.selected_entry = tk.Entry(self.selected_label_frame, state='readonly', width=80, bg=entry_bg_color, font=("Helvetica", 10))
+        self.selected_entry = tk.Entry(self.selected_label_frame, width=80, bg=entry_bg_color, font=("Helvetica", 10))
         self.selected_entry.pack(side=tk.LEFT, padx=10)
 
-        tk.Label(self.selected_label_frame, text="", width=5).pack(side=tk.RIGHT)
+        tk.Label(self.selected_label_frame, text="" , bg='#333333', width=5).pack(side=tk.RIGHT)
 
     def copy_selected_text(self):
         self.root.clipboard_clear()
@@ -93,7 +99,7 @@ class ExcelApp:
 
     def create_treeview_frame(self):
         tree_container = tk.Frame(self.root, bd=2, relief=tk.SUNKEN)
-        tree_container.pack(fill=tk.BOTH, expand=True, padx=10, pady=10)
+        tree_container.pack(fill=tk.BOTH, expand=True, padx=35, pady=35)
 
         vsb = ttk.Scrollbar(tree_container, orient="vertical")
         vsb.pack(side='right', fill='y')
@@ -116,9 +122,9 @@ class ExcelApp:
                     foreground="black",
                     fieldbackground="white")
         style.configure("Treeview.Heading", 
-                        font=("Helvetica", 11, "bold"), 
-                        background="lightblue", 
-                        foreground="black")
+                        font=("Helvetica", 11), 
+                        background="#333333", 
+                        foreground="white")
         style.map('Treeview', 
                 background=[('selected', 'blue')],
                 foreground=[('selected', 'white')])
