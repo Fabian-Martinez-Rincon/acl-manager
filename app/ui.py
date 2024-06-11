@@ -31,48 +31,47 @@ class ExcelApp:
     
     def create_logo(self):
         self.logo_frame = tk.Frame(self.root, bg='#333333')
-        self.logo_frame.pack(side=tk.TOP, pady=10, padx=35, fill=tk.X )
+        self.logo_frame.pack(side=tk.TOP, pady=10, padx=35, fill=tk.X)
 
         self.logo_image = tk.PhotoImage(file="assets/logo.png")
-        self.logo_label = tk.Label(self.logo_frame, image=self.logo_image , bg='#333333')
+        self.logo_label = tk.Label(self.logo_frame, image=self.logo_image, bg='#333333')
         self.logo_label.pack(side=tk.LEFT)
 
         self.title_label = tk.Label(self.logo_frame, text="Gestor de Permisos", font=("Helvetica", 16, "bold"), bg='#333333', fg='white')
         self.title_label.pack(side=tk.LEFT, padx=10)
 
-        tk.Label(self.logo_frame, text="", width=5 , bg='#333333').pack(side=tk.LEFT, expand=True)
+        # Espaciador flexible para empujar el botón a la derecha
+        tk.Label(self.logo_frame, text="", bg='#333333').pack(side=tk.LEFT, expand=True)
 
-        button_frame = tk.Frame(self.root, bg='#333333')
-        button_frame.pack(side=tk.TOP, pady=10, padx=35, fill=tk.X)
-
-        button_style = {'side': tk.LEFT, 'padx': 5, 'pady': 5}
-
-        self.load_button = tk.Button(button_frame, text="CARGAR EXCEL", command=self.load_excel, bg="#333333", fg="white", font=("Helvetica", 10, "bold"))
-        self.load_button.pack(**button_style)
+        self.load_button = tk.Button(self.logo_frame, text="CARGAR EXCEL", command=self.load_excel, bg="lightgrey", fg="black", font=("Helvetica", 10, "bold"))
+        self.load_button.pack(side=tk.LEFT)
 
     def create_button_frame(self):
+        background_style_button = {'bg': 'lightgrey', 'fg': 'black', 'font': ('', 10, 'bold')}
         button_frame = tk.Frame(self.root, bg='#333333')
         button_frame.pack(side=tk.TOP, pady=10, padx=35, fill=tk.X)
 
         button_style = {'side': tk.LEFT, 'padx': 5, 'pady': 5}
 
-        self.get_acl_button = tk.Button(button_frame, text="CONSULTAR PERMISOS", command=lambda: self.process("GET"), bg="#333333", fg="white", font=("Helvetica", 10, "bold"))
+        self.get_acl_button = tk.Button(button_frame, text="CONSULTAR PERMISOS", command=lambda: self.process("GET"), **background_style_button)
         self.get_acl_button.pack(**button_style)
 
-        self.set_acl_button = tk.Button(button_frame, text="SETEAR PERMISOS", command=lambda: self.process("SET"), bg="#333333", fg="white", font=("Helvetica", 10, "bold"))
+        self.set_acl_button = tk.Button(button_frame, text="SETEAR PERMISOS", command=lambda: self.process("SET"), **background_style_button)
         self.set_acl_button.pack(**button_style)
 
-        self.set_acl_recursive_button = tk.Button(button_frame, text="SET ACL Recursivo", command=lambda: self.process("SET RECURSIVO"), bg="#333333", fg="white", font=("Helvetica", 10, "bold"))
+        self.set_acl_recursive_button = tk.Button(button_frame, text="SET ACL Recursivo", command=lambda: self.process("SET RECURSIVO"), **background_style_button)
         self.set_acl_recursive_button.pack(**button_style)
 
-        self.delete_acl_button = tk.Button(button_frame, text="DELETE ACL", command=lambda: self.process("DELETE"), bg="#333333", fg="white", font=("Helvetica", 10, "bold"))
+        self.delete_acl_button = tk.Button(button_frame, text="DELETE ACL", command=lambda: self.process("DELETE"), **background_style_button)
         self.delete_acl_button.pack(**button_style)
 
-        self.delete_acl_recursive_button = tk.Button(button_frame, text="DELETE ACL Recursivo", command=lambda: self.process("DELETE RECURSIVO"), bg="#333333", fg="white", font=("Helvetica", 10, "bold"))
+        self.delete_acl_recursive_button = tk.Button(button_frame, text="DELETE ACL Recursivo", command=lambda: self.process("DELETE RECURSIVO"), **background_style_button)
         self.delete_acl_recursive_button.pack(**button_style)
 
     def create_selected_label(self):
         """Create a label to display the selected row."""
+        background_style_button = {'bg': 'lightgrey', 'fg': 'black', 'font': ('', 10, 'bold')}
+
         self.selected_label_frame = tk.Frame(self.root, bg='#333333')
         self.selected_label_frame.pack(side=tk.TOP, fill=tk.X, padx=35, pady=10)
 
@@ -83,7 +82,7 @@ class ExcelApp:
         self.selected_label = tk.Label(self.selected_label_frame, text="Selecciona una fila y una de las opciones", font=label_font, bg='#333333', fg='white')
         self.selected_label.pack(side=tk.LEFT, padx=10)
 
-        self.copy_button = tk.Button(self.selected_label_frame, text="Copiar", command=self.copy_selected_text, font=button_font, bg="#333333", fg="white")
+        self.copy_button = tk.Button(self.selected_label_frame, text="COPIAR", command=self.copy_selected_text, **background_style_button)
         self.copy_button.pack(side=tk.LEFT, padx=10)
 
         self.selected_entry = tk.Entry(self.selected_label_frame, width=80, bg=entry_bg_color, font=("Helvetica", 10))
