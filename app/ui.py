@@ -2,6 +2,7 @@ import tkinter as tk
 from tkinter import ttk, messagebox
 from app.file_operations import load_excel
 from app.excel_operations import get_acl
+from app.header import create_logo
 import ctypes
 
 class ExcelApp:
@@ -23,28 +24,11 @@ class ExcelApp:
 
     def create_widgets(self):
         """Create and pack all widgets in the main window."""
-        self.create_logo()
+        create_logo(self.root)
         self.create_button_frame()
         self.create_selected_label()
-        # self.create_selected_label()
         self.create_treeview_frame()
     
-    def create_logo(self):
-        self.logo_frame = tk.Frame(self.root, bg='#333333')
-        self.logo_frame.pack(side=tk.TOP, pady=10, padx=35, fill=tk.X)
-
-        self.logo_image = tk.PhotoImage(file="assets/logo.png")
-        self.logo_label = tk.Label(self.logo_frame, image=self.logo_image, bg='#333333')
-        self.logo_label.pack(side=tk.LEFT)
-
-        self.title_label = tk.Label(self.logo_frame, text="Gestor de Permisos", font=("Helvetica", 16, "bold"), bg='#333333', fg='white')
-        self.title_label.pack(side=tk.LEFT, padx=10)
-
-        # Espaciador flexible para empujar el botón a la derecha
-        tk.Label(self.logo_frame, text="", bg='#333333').pack(side=tk.LEFT, expand=True)
-
-        self.load_button = tk.Button(self.logo_frame, text="CARGAR EXCEL", command=self.load_excel, bg="lightgrey", fg="black", font=("Helvetica", 10, "bold"))
-        self.load_button.pack(side=tk.LEFT)
 
     def create_button_frame(self):
         background_style_button = {'bg': 'lightgrey', 'fg': 'black', 'font': ('', 10, 'bold')}
@@ -53,20 +37,21 @@ class ExcelApp:
 
         button_style = {'side': tk.LEFT, 'padx': 5, 'pady': 5}
 
-        self.get_acl_button = tk.Button(button_frame, text="CONSULTAR PERMISOS", command=lambda: self.process("GET"), **background_style_button)
+        self.get_acl_button = tk.Button(button_frame, text="CONSULTAR", command=lambda: self.process("GET"), **background_style_button)
         self.get_acl_button.pack(**button_style)
 
-        self.set_acl_button = tk.Button(button_frame, text="SETEAR PERMISOS", command=lambda: self.process("SET"), **background_style_button)
+        self.set_acl_button = tk.Button(button_frame, text="SETEAR", command=lambda: self.process("SET"), **background_style_button)
         self.set_acl_button.pack(**button_style)
 
-        self.set_acl_recursive_button = tk.Button(button_frame, text="SET ACL Recursivo", command=lambda: self.process("SET RECURSIVO"), **background_style_button)
+        self.set_acl_recursive_button = tk.Button(button_frame, text="SETEAR R", command=lambda: self.process("SET RECURSIVO"), **background_style_button)
         self.set_acl_recursive_button.pack(**button_style)
 
-        self.delete_acl_button = tk.Button(button_frame, text="DELETE ACL", command=lambda: self.process("DELETE"), **background_style_button)
+        self.delete_acl_button = tk.Button(button_frame, text="ELIMINAR", command=lambda: self.process("DELETE"), **background_style_button)
         self.delete_acl_button.pack(**button_style)
 
-        self.delete_acl_recursive_button = tk.Button(button_frame, text="DELETE ACL Recursivo", command=lambda: self.process("DELETE RECURSIVO"), **background_style_button)
+        self.delete_acl_recursive_button = tk.Button(button_frame, text="ELIMINAR R", command=lambda: self.process("DELETE RECURSIVO"), **background_style_button)
         self.delete_acl_recursive_button.pack(**button_style)
+        
 
     def create_selected_label(self):
         """Create a label to display the selected row."""
@@ -188,6 +173,7 @@ class ExcelApp:
             messagebox.showinfo("Copiar", "Texto copiado al portapapeles.")
         else:
             messagebox.showerror("Error", "El texto no se pudo copiar correctamente. Intenta nuevamente.")
+
 
 if __name__ == "__main__":
     root = tk.Tk()
