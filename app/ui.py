@@ -114,19 +114,14 @@ class ExcelApp:
         hsb.config(command=self.tree.xview)
 
         style = ttk.Style()
-        style.theme_use("clam")
         style.configure("Treeview", 
                     font=("Helvetica", 10),
                     rowheight=25,
-                    background="white",
+                    background="lightgrey",
                     foreground="black",
-                    fieldbackground="white")
-        style.configure("Treeview.Heading", 
-                        font=("Helvetica", 11), 
-                        background="#333333", 
-                        foreground="white")
+                    fieldbackground="black")
         style.map('Treeview', 
-                background=[('selected', 'blue')],
+                background=[('selected', '#0077FF')],
                 foreground=[('selected', 'white')])
 
         # self.tree.bind("<ButtonRelease-1>", self.select_item)
