@@ -163,25 +163,38 @@ class ExcelApp:
             elif arg == "SET":
                 acl_commands = []
                 headers = self.tree["columns"]
-                for header, value in zip(headers[1:], selected_row[1:]):
+
+                modified_headers = ["" if header == "Otros" else header for header in headers[1:]]
+
+                for header, value in zip(modified_headers, selected_row[1:]):
                     acl_commands.append(f'setfacl -m g:{header}:{value} {file_path}')
                 command = "; ".join(acl_commands)
+
             elif arg == "SET D":
                 acl_commands = []
                 headers = self.tree["columns"]
-                for header, value in zip(headers[1:], selected_row[1:]):
+
+                modified_headers = ["" if header == "Otros" else header for header in headers[1:]]
+
+                for header, value in zip(modified_headers, selected_row[1:]):
                     acl_commands.append(f'setfacl -d -m g:{header}:{value} {file_path}')
                 command = "; ".join(acl_commands)
             elif arg == "SET RECURSIVO":
                 acl_commands = []
                 headers = self.tree["columns"]
-                for header, value in zip(headers[1:], selected_row[1:]):
+
+                modified_headers = ["" if header == "Otros" else header for header in headers[1:]]
+
+                for header, value in zip(modified_headers, selected_row[1:]):
                     acl_commands.append(f'setfacl -R -m g:{header}:{value} {file_path}')
                 command = "; ".join(acl_commands)
             elif arg == "SET DR":
                 acl_commands = []
                 headers = self.tree["columns"]
-                for header, value in zip(headers[1:], selected_row[1:]):
+
+                modified_headers = ["" if header == "Otros" else header for header in headers[1:]]
+
+                for header, value in zip(modified_headers, selected_row[1:]):
                     acl_commands.append(f'setfacl -R -d -m g:{header}:{value} {file_path}')
                 command = "; ".join(acl_commands)
             elif arg == "DELETE":
