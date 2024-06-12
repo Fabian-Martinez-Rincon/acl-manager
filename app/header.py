@@ -3,12 +3,21 @@ from tkinter import filedialog
 import pandas as pd
 from openpyxl import load_workbook
 from openpyxl.styles import Font, Alignment, PatternFill
+import os
 
 def create_logo(root, app):
     logo_frame = tk.Frame(root, bg='#333333')
     logo_frame.pack(side=tk.TOP, pady=10, padx=35, fill=tk.X)
+    
+    BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    
+    logo_path = os.path.join(BASE_DIR, 'assets', 'logo.png')
+    
+    if not os.path.exists(logo_path):
+        print(BASE_DIR + 'cosa')
+        raise FileNotFoundError(f"No se encontró el archivo: {logo_path}")
 
-    logo_image = tk.PhotoImage(file="assets/logo.png")
+    logo_image = tk.PhotoImage(file=logo_path)
     logo_label = tk.Label(logo_frame, image=logo_image, bg='#333333')
     logo_label.image = logo_image
     logo_label.pack(side=tk.LEFT)
