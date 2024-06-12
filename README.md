@@ -7,7 +7,7 @@ Proyecto para poder gestionar ACLs (Access Control List) en un entorno Linux, al
 
 ## ✏️ Dependencias
 
-![image](https://github.com/Fabian-Martinez-Rincon/Fabian-Martinez-Rincon/assets/55964635/409f30b6-4571-4bdd-ad15-29366fc9c563)
+![image](https://github.com/Eli-Martinez-Rincon/Eli-Martinez-Rincon/assets/55964635/409f30b6-4571-4bdd-ad15-29366fc9c563)
 
 ### Proceso de configuracion
 
@@ -51,4 +51,14 @@ Consultar usuarios creados
 
 ```bash
 cut -d: -f1 /etc/passwd
+```
+
+### Eliminar
+
+```bash
+python -m venv .venv
+
+.venv\Scripts\activate
+
+Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
 ```
