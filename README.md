@@ -28,3 +28,43 @@ En caso de no tener permisos, utilizar
 ```bash
 Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
 ```
+
+## Botones
+
+### Consultar
+
+```bash
+getfacl /home/redes/Desktop
+```
+
+Resultador
+
+```bash
+# file: home/redes/Desktop
+# owner: redes
+# group: users
+user::rwx
+group::---
+other::r-x
+```
+
+### Setear
+
+```bash
+setfacl -m g::--- /home/redes/Desktop; setfacl -m g:group1:rwx /home/redes/Desktop; setfacl -m g:group2:r-x /home/redes/Desktop; setfacl -m g:group3:--- /home/redes/Desktop
+```
+
+Consultamos el resultado
+
+```bash
+# file: home/redes/Desktop
+# owner: redes
+# group: users
+user::rwx
+group::---
+group:group1:rwx
+group:group2:r-x
+group:group3:---
+mask::rwx
+other::r-x
+```
