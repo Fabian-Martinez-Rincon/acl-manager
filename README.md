@@ -7,7 +7,7 @@ Proyecto para poder gestionar ACLs (Access Control List) en un entorno Linux, al
 
 ## ✏️ Interfaz
 
-![image](/assets/Readme.PNG)
+![image](https://github.com/Fabian-Martinez-Rincon/Fabian-Martinez-Rincon/assets/55964635/476e6921-7b13-475e-9ae3-9389d4fc4ad1)
 
 ### Setup Windows
 
