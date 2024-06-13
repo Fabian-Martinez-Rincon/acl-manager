@@ -120,16 +120,23 @@ class ExcelApp:
         hsb.config(command=self.tree.xview)
 
         style = ttk.Style()
+        style.theme_use("clam")
         style.configure("Treeview", 
                     font=("Helvetica", 10),
                     rowheight=25,
                     background="lightgrey",
                     foreground="black",
-                    fieldbackground="black")
+                    fieldbackground="lightgrey")
+        style.configure("Treeview.Heading", 
+                        font=("Helvetica", 11, "bold"), 
+                        background="darkgray", 
+                        foreground="white")
         style.map('Treeview', 
                 background=[('selected', '#0077FF')],
                 foreground=[('selected', 'white')])
 
+        self.tree.tag_configure('oddrow', background='lightgrey')
+        self.tree.tag_configure('evenrow', background='black')
 
     def select_item(self, event):
         selected_item = self.tree.focus()
