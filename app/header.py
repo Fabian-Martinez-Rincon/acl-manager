@@ -129,9 +129,8 @@ class NewPage:
             ("SETEAR R", "Devuelve un comando para setear cada uno de los permisos al directorio seleccionado de manera recursiva (Continuando con el mismo proceso con los subdirectorios y archivos internos)."),
             ("ELIMINAR", "Devuelve un comando para eliminar los permisos del directorio seleccionado (Incluido los permisos por defecto)"),
             ("ELIMINAR R", "Devuelve un comando para eliminar los permisos del directorio seleccionado de manera recursiva (Continuando con el mismo proceso con los subdirectorios y archivos internos)"),
-            ("CARGAR EXCEL", "Cargar un archivo Excel con la configuración de permisos. Este Excel debe tener un formato específico. Puede descargar la plantilla desde el botón 'Descargar Plantilla'."),
-            ("SETEAR POR DEFECTO", "Redirigir a una nueva página o funcionalidad."),
-            ("SETEAR POR DEFECTO R", "Redirigir a una nueva página o funcionalidad.")
+            ("SETEAR POR DEFECTO", "Devuelve un comando para setear los permisos por defecto (Los que se agregan en ese directorio)"),
+            ("SETEAR POR DEFECTO R", "Devuelve un comando para setear los permisos por defecto de manera recursiva (Esto se aplica a todos los directorios internas) ")
         ]
 
         for btn_text, description in buttons_info:
