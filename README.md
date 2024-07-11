@@ -5,6 +5,12 @@ src="https://github.com/blackcater/blackcater/raw/main/images/Hi.gif" height="32
 
 Proyecto para poder gestionar ACLs (Access Control List) en un entorno Linux, al tener muchos comandos repetidos basados en un excel se me ocurrio que seria mas comodo poder formater los comandos de forma automatica usando una interfaz "Amigable".
 
+
+
+https://github.com/Fabian-Martinez-Rincon/acl-manager/assets/55964635/629296ad-cf81-4db5-afb9-1d544a6e8d51
+
+
+
 ## ✏️ Interfaz
 
 ![image](https://github.com/Fabian-Martinez-Rincon/Fabian-Martinez-Rincon/assets/55964635/476e6921-7b13-475e-9ae3-9389d4fc4ad1)
