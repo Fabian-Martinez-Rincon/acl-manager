@@ -9,6 +9,8 @@ https://github.com/Fabian-Martinez-Rincon/acl-manager/assets/55964635/629296ad-c
 
 ![image](https://github.com/Fabian-Martinez-Rincon/Fabian-Martinez-Rincon/assets/55964635/476e6921-7b13-475e-9ae3-9389d4fc4ad1)
 
+<img src= 'https://i.gifer.com/origin/8c/8cd3f1898255c045143e1da97fbabf10_w200.gif' height="20" width="100%">
+
 ### ⚙️ Setup
 
 Creamos el entorno Virtual
@@ -34,6 +36,8 @@ Instalamos las dependencias
 pip install -r requirements.txt
 ```
 
+<img src= 'https://i.gifer.com/origin/8c/8cd3f1898255c045143e1da97fbabf10_w200.gif' height="20" width="100%">
+
 ### 🔴 Botones
 
 `Consultar`
@@ -52,6 +56,8 @@ user::rwx
 group::---
 other::r-x
 ```
+
+<img src= 'https://i.gifer.com/origin/8c/8cd3f1898255c045143e1da97fbabf10_w200.gif' height="20" width="100%">
 
 `Setear`
 
@@ -73,6 +79,8 @@ group:group3:---
 mask::rwx
 other::r-x
 ```
+
+<img src= 'https://i.gifer.com/origin/8c/8cd3f1898255c045143e1da97fbabf10_w200.gif' height="20" width="100%">
 
 `Seteamos de forma Recursiva`
 
@@ -108,6 +116,8 @@ drwxrwxr-x+  4 redes users     4096 May 31 07:38  MartinezRincon-0d5ae8-main
 drwxrwxr-x+ 16 redes users     4096 May 31 07:02  Python-3.8.10
 -rw-rwxr--+  1 redes users 18433456 May  3  2021  Python-3.8.10.tar.xz
 ```
+
+<img src= 'https://i.gifer.com/origin/8c/8cd3f1898255c045143e1da97fbabf10_w200.gif' height="20" width="100%">
 
 `Eliminar`
 
@@ -145,6 +155,8 @@ group::---
 other::r-x
 ```
 
+<img src= 'https://i.gifer.com/origin/8c/8cd3f1898255c045143e1da97fbabf10_w200.gif' height="20" width="100%">
+
 `Eliminar R` (De forma Recursiva)
 
 Antes de eliminar los permisos
@@ -180,6 +192,8 @@ drwx---r-x  4 redes users     4096 May 31 07:38  MartinezRincon-0d5ae8-main
 drwx---r-x 16 redes users     4096 May 31 07:02  Python-3.8.10
 -rw----r--  1 redes users 18433456 May  3  2021  Python-3.8.10.tar.xz
 ```
+
+<img src= 'https://i.gifer.com/origin/8c/8cd3f1898255c045143e1da97fbabf10_w200.gif' height="20" width="100%">
 
 `Setear Por Defecto`
 
@@ -220,6 +234,8 @@ default:mask::rwx
 default:other::r-x
 ```
 
+<img src= 'https://i.gifer.com/origin/8c/8cd3f1898255c045143e1da97fbabf10_w200.gif' height="20" width="100%">
+
 `Setear` Por Defecto de Forma Recursiva
 
 Antes de setear
@@ -255,3 +271,5 @@ drwx---r-x+  4 redes users     4096 May 31 07:38  MartinezRincon-0d5ae8-main
 drwx---r-x+ 16 redes users     4096 May 31 07:02  Python-3.8.10
 -rw----r--   1 redes users 18433456 May  3  2021  Python-3.8.10.tar.xz
 ```
+
+<img src= 'https://i.gifer.com/origin/8c/8cd3f1898255c045143e1da97fbabf10_w200.gif' height="20" width="100%">
