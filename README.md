@@ -1,22 +1,15 @@
 <h1 align="center">ACL Manager <img
 src="https://github.com/blackcater/blackcater/raw/main/images/Hi.gif" height="32" /></h1>
 
-
-
 Proyecto para poder gestionar ACLs (Access Control List) en un entorno Linux, al tener muchos comandos repetidos basados en un excel se me ocurrio que seria mas comodo poder formater los comandos de forma automatica usando una interfaz "Amigable".
-
-
 
 https://github.com/Fabian-Martinez-Rincon/acl-manager/assets/55964635/629296ad-cf81-4db5-afb9-1d544a6e8d51
 
-
-
-## ✏️ Interfaz
+### ✏️ Interfaz
 
 ![image](https://github.com/Fabian-Martinez-Rincon/Fabian-Martinez-Rincon/assets/55964635/476e6921-7b13-475e-9ae3-9389d4fc4ad1)
 
-### Setup Windows
-
+### ⚙️ Setup
 
 Creamos el entorno Virtual
 
@@ -41,9 +34,9 @@ Instalamos las dependencias
 pip install -r requirements.txt
 ```
 
-## Botones
+### 🔴 Botones
 
-### Consultar
+`Consultar`
 
 ```bash
 getfacl /home/redes/Desktop
@@ -60,7 +53,7 @@ group::---
 other::r-x
 ```
 
-### Setear
+`Setear`
 
 ```bash
 setfacl -m g::--- /home/redes/Desktop; setfacl -m g:group1:rwx /home/redes/Desktop; setfacl -m g:group2:r-x /home/redes/Desktop; setfacl -m g:group3:--- /home/redes/Desktop
@@ -81,7 +74,7 @@ mask::rwx
 other::r-x
 ```
 
-### Seteamos de forma Recursiva
+`Seteamos de forma Recursiva`
 
 Antes de setear
 
@@ -103,9 +96,6 @@ Despues de setear
 ```bash
 setfacl -R -m g::--- /home/redes/Desktop; setfacl -R -m g:group1:rwx /home/redes/Desktop; setfacl -R -m g:group2:r-x /home/redes/Desktop; setfacl -R -m g:group3:--- /home/redes/Desktop
 ```
-
-
-
 ```bash
 Comando: ls -l /home/redes/Desktop
 total 18124
@@ -119,7 +109,7 @@ drwxrwxr-x+ 16 redes users     4096 May 31 07:02  Python-3.8.10
 -rw-rwxr--+  1 redes users 18433456 May  3  2021  Python-3.8.10.tar.xz
 ```
 
-### Eliminar
+`Eliminar`
 
 Antes de eliminar los permisos
 
@@ -155,7 +145,7 @@ group::---
 other::r-x
 ```
 
-### Eliminar R (De forma Recursiva)
+`Eliminar R` (De forma Recursiva)
 
 Antes de eliminar los permisos
 
@@ -191,7 +181,7 @@ drwx---r-x 16 redes users     4096 May 31 07:02  Python-3.8.10
 -rw----r--  1 redes users 18433456 May  3  2021  Python-3.8.10.tar.xz
 ```
 
-### Setear Por Defecto
+`Setear Por Defecto`
 
 Antes de setear
 
@@ -230,7 +220,7 @@ default:mask::rwx
 default:other::r-x
 ```
 
-### Setear Por Defecto de Forma Recursiva
+`Setear` Por Defecto de Forma Recursiva
 
 Antes de setear
 
